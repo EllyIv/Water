@@ -1,0 +1,3 @@
+import "spce.lt"
+
+w  = new SPCE [360]

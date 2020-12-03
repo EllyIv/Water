@@ -1,0 +1,39 @@
+
+
+# ----------------- Init Section -----------------
+
+include "pack360.in.init"
+
+
+# ----------------- Atom Definition Section -----------------
+
+read_data "pack360.data"
+
+# ----------------- Settings Section -----------------
+
+include "pack360.in.settings"
+
+
+# ----------------- Run Section -----------------
+
+neighbor                2.0 bin
+neigh_modify            delay 0 every 25 check yes cluster no one 3000
+timestep                0.25
+
+#give the initial velocity and hold temperature and pressure constant
+velocity                all  create 298.15 3
+fix                     1 all  npt temp 298.15 298.15 100.0 iso 1.0 1.0 1000.0
+velocity                all  scale 298.15
+
+#thermodynamics
+thermo_style            custom step temp press vol density evdwl ecoul elong epair ebond eangle edihed etotal
+thermo                  100
+
+#dump the coordinates, make a restart file
+dump                    xyzCoords all  xyz 10000 out/trajectoryTip3p.*.xyz
+restart                 110000 Tip3pDensity.restart
+
+#run the simulation
+run 1000000
+
+write_data final_1000000.data
