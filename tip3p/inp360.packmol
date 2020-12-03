@@ -1,0 +1,7 @@
+tolerance 2.5
+filetype xyz
+output pack360.xyz
+structure water.xyz
+number 360
+  inside sphere 0. 0. 0. 10.
+end structure

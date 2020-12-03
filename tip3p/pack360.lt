@@ -1,0 +1,3 @@
+import "tip3p.lt"
+
+w  = new TIP3P [360]
